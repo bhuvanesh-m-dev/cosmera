@@ -1,0 +1,161 @@
+/* style.css
+  Custom styles for the Cosmera website.
+*/
+
+/* General Body and Font Styles */
+body {
+    background-color: #050505; /* Deep Space Black */
+    color: #E0E0E0;
+    font-family: 'Exo 2', sans-serif;
+    overflow-x: hidden;
+}
+
+h1, h2, h3, .font-orbitron {
+    font-family: 'Orbitron', sans-serif;
+}
+
+/* Starfield Canvas Background */
+#star-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    display: block;
+}
+
+/* Hero Section Styling */
+.hero-section {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+}
+
+/* Navigation Link Hover Effect */
+.nav-link {
+    transition: color 0.3s ease, text-shadow 0.3s ease;
+    font-family: 'Orbitron', sans-serif;
+    letter-spacing: 1px;
+}
+.nav-link:hover {
+    color: #00FFFF; /* Cyan hover color */
+    text-shadow: 0 0 8px rgba(0, 255, 255, 0.8);
+}
+
+/* Call-to-Action Button Styles */
+.cta-button {
+    background: linear-gradient(45deg, #7F00FF, #00FFFF);
+    background-size: 200% 200%;
+    animation: gradientShift 5s ease infinite;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    font-family: 'Orbitron', sans-serif;
+    letter-spacing: 1px;
+    border: none;
+}
+.cta-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 20px rgba(127, 0, 255, 0.6), 0 0 10px rgba(0, 255, 255, 0.4);
+}
+
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Vision Card Styling */
+.vision-card {
+    background-color: rgba(10, 10, 15, 0.6);
+    border: 1px solid rgba(0, 255, 255, 0.1);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+.vision-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 25px rgba(127, 0, 255, 0.2);
+    border-color: rgba(127, 0, 255, 0.5);
+}
+
+/* Scroll to Top Button */
+.scroll-to-top {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    background-color: rgba(10, 10, 15, 0.8);
+    color: #00FFFF;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 1000;
+    border: 1px solid #7F00FF;
+    box-shadow: 0 0 10px rgba(127, 0, 255, 0.3);
+}
+.scroll-to-top:hover {
+    background-color: #7F00FF;
+    color: white;
+    transform: scale(1.1);
+    box-shadow: 0 0 20px rgba(127, 0, 255, 0.6);
+}
+
+/* Hamburger Menu Styles for Mobile */
+.hamburger {
+    cursor: pointer;
+    display: none;
+}
+.hamburger .line {
+    width: 25px;
+    height: 2px;
+    background-color: #E0E0E0;
+    display: block;
+    margin: 6px auto;
+    transition: all 0.3s ease-in-out;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    .hamburger {
+        display: block;
+    }
+    .nav-links {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        background-color: #050505;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        padding: 1rem 0;
+    }
+    .nav-links.active {
+        display: flex;
+    }
+    .nav-links li {
+        text-align: center;
+        margin: 1rem 0;
+    }
+}
+
+/* Rotating Quotes Animation */
+.quote {
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+    position: absolute;
+    left: 0;
+    right: 0;
+    font-family: 'Exo 2', sans-serif;
+    font-weight: 300;
+}
+.quote.active {
+    opacity: 1;
+}
