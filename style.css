@@ -4,10 +4,18 @@
 
 /* General Body and Font Styles */
 body {
-    background-color: #000000;
+    background-color: #050505;
+    /* Deep Space Black */
     color: #E0E0E0;
-    font-family: 'Poppins', sans-serif;
-    overflow-x: hidden; /* Prevents horizontal scrollbar */
+    font-family: 'Exo 2', sans-serif;
+    overflow-x: hidden;
+}
+
+h1,
+h2,
+h3,
+.font-orbitron {
+    font-family: 'Orbitron', sans-serif;
 }
 
 /* Starfield Canvas Background */
@@ -17,7 +25,7 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: -1; /* Places the canvas behind all other content */
+    z-index: -1;
     display: block;
 }
 
@@ -34,33 +42,60 @@ body {
 
 /* Navigation Link Hover Effect */
 .nav-link {
-    transition: color 0.3s ease;
+    transition: color 0.3s ease, text-shadow 0.3s ease;
+    font-family: 'Orbitron', sans-serif;
+    letter-spacing: 1px;
 }
+
 .nav-link:hover {
-    color: #7F00FF; /* Purple hover color */
+    color: #00FFFF;
+    /* Cyan hover color */
+    text-shadow: 0 0 8px rgba(0, 255, 255, 0.8);
 }
 
 /* Call-to-Action Button Styles */
 .cta-button {
-    background-color: #7F00FF;
-    transition: background-color 0.3s ease, transform 0.3s ease;
+    background: linear-gradient(45deg, #7F00FF, #00FFFF);
+    background-size: 200% 200%;
+    animation: gradientShift 5s ease infinite;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    font-family: 'Orbitron', sans-serif;
+    letter-spacing: 1px;
+    border: none;
 }
+
 .cta-button:hover {
-    background-color: #5F00BF; /* Darker purple on hover */
-    transform: translateY(-2px); /* Slight lift effect */
+    transform: translateY(-2px);
+    box-shadow: 0 0 20px rgba(127, 0, 255, 0.6), 0 0 10px rgba(0, 255, 255, 0.4);
+}
+
+@keyframes gradientShift {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
 }
 
 /* Vision Card Styling */
 .vision-card {
-    background-color: rgba(18, 18, 22, 0.7); /* Semi-transparent dark background */
-    border: 1px solid rgba(127, 0, 255, 0.2); /* Subtle purple border */
-    backdrop-filter: blur(10px); /* Frosted glass effect */
-    -webkit-backdrop-filter: blur(10px); /* Safari support for backdrop-filter */
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background-color: rgba(10, 10, 15, 0.6);
+    border: 1px solid rgba(0, 255, 255, 0.1);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
 }
+
 .vision-card:hover {
-    transform: translateY(-5px); /* Lift card on hover */
-    box-shadow: 0 8px 30px rgba(127, 0, 255, 0.3); /* Purple glow effect */
+    transform: translateY(-5px);
+    box-shadow: 0 0 25px rgba(127, 0, 255, 0.2);
+    border-color: rgba(127, 0, 255, 0.5);
 }
 
 /* Scroll to Top Button */
@@ -68,29 +103,34 @@ body {
     position: fixed;
     bottom: 2rem;
     right: 2rem;
-    background-color: rgba(30, 30, 35, 0.8);
-    color: #E0E0E0;
+    background-color: rgba(10, 10, 15, 0.8);
+    color: #00FFFF;
     width: 3rem;
     height: 3rem;
     border-radius: 50%;
-    display: none; /* Hidden by default, shown via JS */
+    display: none;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.3s ease;
+    transition: all 0.3s ease;
     z-index: 1000;
     border: 1px solid #7F00FF;
+    box-shadow: 0 0 10px rgba(127, 0, 255, 0.3);
 }
+
 .scroll-to-top:hover {
     background-color: #7F00FF;
+    color: white;
     transform: scale(1.1);
+    box-shadow: 0 0 20px rgba(127, 0, 255, 0.6);
 }
 
 /* Hamburger Menu Styles for Mobile */
 .hamburger {
     cursor: pointer;
-    display: none; /* Hidden by default on larger screens */
+    display: none;
 }
+
 .hamburger .line {
     width: 25px;
     height: 2px;
@@ -100,24 +140,27 @@ body {
     transition: all 0.3s ease-in-out;
 }
 
-/* Responsive styles for screens smaller than 768px */
+/* Responsive styles */
 @media (max-width: 768px) {
     .hamburger {
-        display: block; /* Show hamburger on mobile */
+        display: block;
     }
+
     .nav-links {
-        display: none; /* Hide the desktop nav links */
+        display: none;
         flex-direction: column;
         width: 100%;
-        background-color: #0a0a0a;
+        background-color: #050505;
         position: absolute;
         top: 100%;
         left: 0;
         padding: 1rem 0;
     }
+
     .nav-links.active {
-        display: flex; /* Show nav links when active */
+        display: flex;
     }
+
     .nav-links li {
         text-align: center;
         margin: 1rem 0;
@@ -128,10 +171,63 @@ body {
 .quote {
     opacity: 0;
     transition: opacity 1s ease-in-out;
-    position: absolute; /* Allows quotes to stack on top of each other */
+    position: absolute;
     left: 0;
     right: 0;
+    font-family: 'Exo 2', sans-serif;
+    font-weight: 300;
 }
+
 .quote.active {
-    opacity: 1; /* Fades in the active quote */
+    opacity: 1;
+}
+
+/* Tech Stack Marquee */
+.marquee-container {
+    overflow: hidden;
+    white-space: nowrap;
+    position: relative;
+    width: 100%;
+    padding: 2rem 0;
+    background: linear-gradient(to right, #050505, transparent 20%, transparent 80%, #050505);
+    /* Fade edges */
+}
+
+.marquee-content {
+    display: inline-flex;
+    animation: scroll 40s linear infinite;
+    /* Adjust speed here */
+}
+
+.marquee-content:hover {
+    animation-play-state: paused;
+    /* Pause on hover */
+}
+
+@keyframes scroll {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-50%);
+    }
+
+    /* Move half the width (since content is duplicated) */
+}
+
+.marquee-content i {
+    transition: transform 0.3s ease, filter 0.3s ease;
+    filter: grayscale(100%);
+    /* Start grayscale */
+    opacity: 0.7;
+}
+
+.marquee-content i:hover {
+    transform: scale(1.2);
+    filter: grayscale(0%);
+    /* Color on hover */
+    opacity: 1;
+    text-shadow: 0 0 15px rgba(127, 0, 255, 0.8);
+    /* Glow effect */
 }
