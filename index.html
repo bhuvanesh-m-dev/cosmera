@@ -1,18 +1,26 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cosmera - Code with Cosmos. Think Beyond Limits.</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Three.js CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300;400;600&family=Orbitron:wght@400;500;700;900&display=swap"
+        rel="stylesheet">
+    <!-- Devicon CDN -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
     <!-- Link to your external stylesheet -->
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body class="bg-black">
 
     <!-- Canvas for Starfield Animation -->
@@ -22,30 +30,40 @@
     <div id="home" class="relative z-10">
 
         <!-- Sticky Navigation Bar -->
-        <header id="navbar" class="bg-black/30 backdrop-blur-md fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+        <header id="navbar"
+            class="bg-black/30 backdrop-blur-md fixed top-0 left-0 right-0 z-50 transition-all duration-300">
             <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
                 <a href="#home" class="text-2xl font-bold text-white">COSMERA</a>
                 <div class="hidden md:flex items-center space-x-8">
                     <a href="#home" class="nav-link text-gray-300">Home</a>
                     <a href="#why-cosmera" class="nav-link text-gray-300">Why Cosmera</a>
                     <a href="#vision" class="nav-link text-gray-300">Vision</a>
-                    <a href="#projects" class="nav-link text-gray-300">Projects</a>
-                    <a href="https://forms.gle/amMyXCNhaCRYWDz7A" target="_blank" class="cta-button text-white font-semibold py-2 px-4 rounded-lg">Join Us</a>
+                    <a href="#technologies" class="nav-link text-gray-300">Technologies</a>
+                    <a href="https://forms.gle/amMyXCNhaCRYWDz7A" target="_blank"
+                        class="cta-button text-white font-semibold py-2 px-4 rounded-lg">Join Us</a>
                 </div>
                 <!-- Hamburger Menu -->
                 <div class="md:hidden">
                     <button id="hamburger-button" class="text-white focus:outline-none">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 6h16M4 12h16m-7 6h7"></path>
+                        </svg>
                     </button>
                 </div>
             </nav>
             <!-- Mobile Menu -->
             <div id="mobile-menu" class="md:hidden hidden bg-black/50 backdrop-blur-lg">
                 <a href="#home" class="block text-center py-2 px-4 text-sm text-gray-300 hover:bg-gray-800">Home</a>
-                <a href="#why-cosmera" class="block text-center py-2 px-4 text-sm text-gray-300 hover:bg-gray-800">Why Cosmera</a>
+                <a href="#why-cosmera" class="block text-center py-2 px-4 text-sm text-gray-300 hover:bg-gray-800">Why
+                    Cosmera</a>
                 <a href="#vision" class="block text-center py-2 px-4 text-sm text-gray-300 hover:bg-gray-800">Vision</a>
-                <a href="#projects" class="block text-center py-2 px-4 text-sm text-gray-300 hover:bg-gray-800">Projects</a>
-                <a href="https://docs.google.com/forms/d/e/1FAIpQLSe.../viewform" target="_blank" class="block text-center py-4 px-4 text-sm cta-button text-white font-semibold rounded-lg mx-4 my-2">Join Us</a>
+                <a href="#technologies"
+                    class="block text-center py-2 px-4 text-sm text-gray-300 hover:bg-gray-800">Technologies</a>
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLSe.../viewform" target="_blank"
+                    class="block text-center py-4 px-4 text-sm cta-button text-white font-semibold rounded-lg mx-4 my-2">Join
+                    Us</a>
             </div>
         </header>
 
@@ -54,9 +72,12 @@
             <div class="container mx-auto px-6">
                 <p class="text-2xl font-bold text-white">Code with Cosmos. Think Beyond Limits.</p>
                 <div id="quotes-container" class="relative h-12 mt-8 text-gray-300 text-xl md:text-2xl">
-                    <p class="quote active">We are stardust coding stars—logic is our language, and the cosmos is our playground.</p>
-                    <p class="quote">In the infinite universe of code, every bug is a black hole waiting to be mapped.</p>
-                    <p class="quote">Ideas are like galaxies—born from chaos, shaped by gravity, and bright enough to guide.</p>
+                    <p class="quote active">We are stardust coding stars—logic is our language, and the cosmos is our
+                        playground.</p>
+                    <p class="quote">In the infinite universe of code, every bug is a black hole waiting to be mapped.
+                    </p>
+                    <p class="quote">Ideas are like galaxies—born from chaos, shaped by gravity, and bright enough to
+                        guide.</p>
                     <p class="quote">Every keystroke is a ripple in the cosmic ocean of innovation.</p>
                     <p class="quote">Your code today builds the constellations of tomorrow.</p>
                     <p class="quote">Think in bits. Build in light-years.</p>
@@ -64,7 +85,9 @@
                     <p class="quote">Collaboration is the new competition.</p>
                     <p class="quote">Innovation distinguishes between a leader and a follower.</p>
                 </div>
-                <a href="https://forms.gle/amMyXCNhaCRYWDz7A" target="_blank" class="cta-button text-white font-bold py-3 px-8 rounded-full mt-20 inline-block">Join the Cosmic - Era Journey</a>
+                <a href="https://forms.gle/amMyXCNhaCRYWDz7A" target="_blank"
+                    class="cta-button text-white font-bold py-3 px-8 rounded-full mt-20 inline-block">Join the Cosmic -
+                    Era Journey</a>
             </div>
         </section>
 
@@ -75,11 +98,19 @@
                     <h2 class="text-4xl font-bold text-white mb-6">Why Cosmera?</h2>
                     <div class="max-w-3xl mx-auto">
                         <p class="text-lg text-gray-400 leading-relaxed">
-                            In an era where technology evolves at the speed of thought, <b>Cosmera</b> is more than a hub — it’s a <b>cosmic shift</b> in how we think, build, and connect. Born from stardust and code, Cosmera is a sanctuary for the curious, the bold, and the boundlessly creative.<br><br>
+                            In an era where technology evolves at the speed of thought, <b>Cosmera</b> is more than a
+                            hub — it’s a <b>cosmic shift</b> in how we think, build, and connect. Born from stardust and
+                            code, Cosmera is a sanctuary for the curious, the bold, and the boundlessly
+                            creative.<br><br>
 
-We believe the <b>Universe favors the imaginative.</b> That’s why Cosmera exists: to inspire developers, designers, and visionaries to transcend limits and rewrite what’s possible. Here, collaboration isn’t just encouraged — it’s the gravity that binds us. Every project is a constellation, every contributor a star.<br><br>
+                            We believe the <b>Universe favors the imaginative.</b> That’s why Cosmera exists: to inspire
+                            developers, designers, and visionaries to transcend limits and rewrite what’s possible.
+                            Here, collaboration isn’t just encouraged — it’s the gravity that binds us. Every project is
+                            a constellation, every contributor a star.<br><br>
 
-Whether you're launching your first app or your next moonshot, Cosmera provides the tools, the minds, and the cosmic fuel to help you soar. Because in this universe, <b>we don't just write code — we craft galaxies.</b>
+                            Whether you're launching your first app or your next moonshot, Cosmera provides the tools,
+                            the minds, and the cosmic fuel to help you soar. Because in this universe, <b>we don't just
+                                write code — we craft galaxies.</b>
                         </p>
                     </div>
                 </div>
@@ -94,52 +125,78 @@ Whether you're launching your first app or your next moonshot, Cosmera provides 
                         <div class="vision-card p-8 rounded-xl text-center">
                             <div class="text-5xl mb-4 text-violet-500">🚀</div>
                             <h3 class="text-2xl font-semibold text-white mb-3">Real Tools</h3>
-                            <p class="text-gray-400">Access industry-standard tools and frameworks to bring your most ambitious projects to life.</p>
+                            <p class="text-gray-400">Access industry-standard tools and frameworks to bring your most
+                                ambitious projects to life.</p>
                         </div>
                         <!-- Card 2 -->
                         <div class="vision-card p-8 rounded-xl text-center">
                             <div class="text-5xl mb-4 text-violet-500">🧠</div>
                             <h3 class="text-2xl font-semibold text-white mb-3">Creativity</h3>
-                            <p class="text-gray-400">A space where imagination is your only limit. We encourage experimentation and out-of-the-box thinking.</p>
+                            <p class="text-gray-400">A space where imagination is your only limit. We encourage
+                                experimentation and out-of-the-box thinking.</p>
                         </div>
                         <!-- Card 3 -->
                         <div class="vision-card p-8 rounded-xl text-center">
-                           <div class="text-5xl mb-4 text-violet-500">🤝</div>
+                            <div class="text-5xl mb-4 text-violet-500">🤝</div>
                             <h3 class="text-2xl font-semibold text-white mb-3">Networking</h3>
-                            <p class="text-gray-400">Connect with peers, find mentors, and build teams that can conquer any challenge.</p>
+                            <p class="text-gray-400">Connect with peers, find mentors, and build teams that can conquer
+                                any challenge.</p>
                         </div>
                         <!-- Card 4 -->
                         <div class="vision-card p-8 rounded-xl text-center">
                             <div class="text-5xl mb-4 text-violet-500">📡</div>
                             <h3 class="text-2xl font-semibold text-white mb-3">Knowledge Sharing</h3>
-                            <p class="text-gray-400">Learn from the best and share your expertise. Our community thrives on collective intelligence.</p>
+                            <p class="text-gray-400">Learn from the best and share your expertise. Our community thrives
+                                on collective intelligence.</p>
                         </div>
                     </div>
                 </div>
             </section>
-            <!-- Projects Section -->
-            <section id="projects" class="py-20 md:py-32">
-                <div class="container mx-auto px-6">
-                    <h2 class="text-4xl font-bold text-white text-center mb-16">Featured Projects</h2>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 justify-center">
-                        <!-- Project Card -->
-                        <div class="vision-card p-6 rounded-lg">
-                            <div class="bg-gray-800 rounded-md overflow-hidden">
-                                <center><a href="https://bhuvaneshm.in/cosmotalker" target="_blank"><img src="img/cosmotalker.png" alt="Project CosmoTalker" class="w-full"></a></center>
-                            </div>
-                        </div>
+            <!-- Technologies Section -->
+            <section id="technologies" class="py-20 md:py-32">
+                <div class="container mx-auto px-6 text-center">
+                    <h2 class="text-4xl font-bold text-white mb-6">Our Tech Universe</h2>
+                    <p class="text-lg text-gray-400 mb-12 max-w-2xl mx-auto">We harness the power of diverse languages
+                        and frameworks to build the future. From frontend stars to backend black holes, our expertise
+                        spans the galaxy.</p>
 
-                        <!-- Project Card -->
-                        <div class="vision-card p-6 rounded-lg">
-                            <div class="bg-gray-800 h-40 rounded-md flex items-center justify-center pt-20">
-                                <center><a href="https://bhuvaneshm.in/cosmo4u" target="_blank"><img src="img/cosmo4u.png" alt="Project CosmoTalker" class="w-full h-full object-contain mt-36"></a></center>
-                            </div>
-                        </div>
-                        <!-- Project Card -->
-                        <div class="vision-card p-6 rounded-lg">
-                            <div class="bg-gray-800 h-40 rounded-md flex items-center justify-center pt-20">
-                                <center><a href="https://bhuvaneshm.in/setbian" target="_blank"><img src="img/setbian.png" alt="Project CosmoTalker" class="w-full h-full object-contain mt-36"></a></center>
-                            </div>
+                    <div class="marquee-container">
+                        <div class="marquee-content">
+                            <!-- Icons (Duplicated for seamless scrolling) -->
+                            <i class="devicon-python-plain colored text-6xl mx-8"></i>
+                            <i class="devicon-javascript-plain colored text-6xl mx-8"></i>
+                            <i class="devicon-react-original colored text-6xl mx-8"></i>
+                            <i class="devicon-nodejs-plain-wordmark colored text-6xl mx-8"></i>
+                            <i class="devicon-html5-plain-wordmark colored text-6xl mx-8"></i>
+                            <i class="devicon-css3-plain-wordmark colored text-6xl mx-8"></i>
+                            <i class="devicon-threejs-original-wordmark text-white text-6xl mx-8"></i>
+                            <i class="devicon-cplusplus-plain colored text-6xl mx-8"></i>
+                            <i class="devicon-java-plain-wordmark colored text-6xl mx-8"></i>
+                            <i class="devicon-git-plain colored text-6xl mx-8"></i>
+                            <i class="devicon-docker-plain colored text-6xl mx-8"></i>
+                            <i class="devicon-amazonwebservices-plain-wordmark colored text-6xl mx-8"></i>
+                            <i class="devicon-typescript-plain colored text-6xl mx-8"></i>
+                            <i class="devicon-mongodb-plain-wordmark colored text-6xl mx-8"></i>
+                            <i class="devicon-nextjs-original-wordmark text-white text-6xl mx-8"></i>
+                            <i class="devicon-tailwindcss-original colored text-6xl mx-8"></i>
+
+                            <!-- Duplicate for seamless loop -->
+                            <i class="devicon-python-plain colored text-6xl mx-8"></i>
+                            <i class="devicon-javascript-plain colored text-6xl mx-8"></i>
+                            <i class="devicon-react-original colored text-6xl mx-8"></i>
+                            <i class="devicon-nodejs-plain-wordmark colored text-6xl mx-8"></i>
+                            <i class="devicon-html5-plain-wordmark colored text-6xl mx-8"></i>
+                            <i class="devicon-css3-plain-wordmark colored text-6xl mx-8"></i>
+                            <i class="devicon-threejs-original-wordmark text-white text-6xl mx-8"></i>
+                            <i class="devicon-cplusplus-plain colored text-6xl mx-8"></i>
+                            <i class="devicon-java-plain-wordmark colored text-6xl mx-8"></i>
+                            <i class="devicon-git-plain colored text-6xl mx-8"></i>
+                            <i class="devicon-docker-plain colored text-6xl mx-8"></i>
+                            <i class="devicon-amazonwebservices-plain-wordmark colored text-6xl mx-8"></i>
+                            <i class="devicon-typescript-plain colored text-6xl mx-8"></i>
+                            <i class="devicon-mongodb-plain-wordmark colored text-6xl mx-8"></i>
+                            <i class="devicon-nextjs-original-wordmark text-white text-6xl mx-8"></i>
+                            <i class="devicon-tailwindcss-original colored text-6xl mx-8"></i>
                         </div>
                     </div>
                 </div>
@@ -149,10 +206,16 @@ Whether you're launching your first app or your next moonshot, Cosmera provides 
             <section id="join-us" class="py-20 md:py-32 text-center">
                 <div class="container mx-auto px-6">
                     <h2 class="text-4xl font-bold text-white mb-8">Ready to Shape the Future?</h2>
-                    <p>The stars aren’t out of reach — they’re just waiting for bold minds to rise. <strong>Cosmera</strong> isn’t just where ideas live — it’s where they <em>launch</em>. This is your launchpad to build, create, and shape what comes next.<br><br><strong>Are you ready to lead the next cosmic wave of innovation?</strong><br><br><span style="font-weight: 600;">Join the journey. The universe is waiting.</span></p><br><br>
+                    <p>The stars aren’t out of reach — they’re just waiting for bold minds to rise.
+                        <strong>Cosmera</strong> isn’t just where ideas live — it’s where they <em>launch</em>. This is
+                        your launchpad to build, create, and shape what comes next.<br><br><strong>Are you ready to lead
+                            the next cosmic wave of innovation?</strong><br><br><span style="font-weight: 600;">Join the
+                            journey. The universe is waiting.</span></p><br><br>
 
 
-                    <a href="https://forms.gle/amMyXCNhaCRYWDz7A" target="_blank" class="cta-button text-white font-bold py-4 px-10 rounded-full text-lg">Join the Cosmic - Era Journey</a>
+                    <a href="https://forms.gle/amMyXCNhaCRYWDz7A" target="_blank"
+                        class="cta-button text-white font-bold py-4 px-10 rounded-full text-lg">Join the Cosmic - Era
+                        Journey</a>
                 </div>
             </section>
 
@@ -162,7 +225,7 @@ Whether you're launching your first app or your next moonshot, Cosmera provides 
     <footer class="text-center py-8 text-gray-500">
         <p>&copy; 2025 Cosmera. All rights reserved.</p>
     </footer>
-                
+
     <!-- Scroll to Top Button -->
     <a id="scroll-to-top" class="scroll-to-top">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -173,4 +236,5 @@ Whether you're launching your first app or your next moonshot, Cosmera provides 
     <!-- Link to your external script file -->
     <script src="script.js"></script>
 </body>
+
 </html>
