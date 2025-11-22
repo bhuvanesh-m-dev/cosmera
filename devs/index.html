@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cosmera Developer Community</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Space+Grotesk:wght@300;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* --- CSS Reset & Base --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            overflow: hidden; /* Prevent scrollbars */
+            background-color: #050505;
+            color: #ffffff;
+            font-family: 'Space Grotesk', sans-serif;
+            height: 100vh;
+            width: 100vw;
+            position: relative;
+        }
+
+        /* --- 3D Canvas Background --- */
+        #canvas-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        /* --- Main Content Card --- */
+        .content-wrapper {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+            width: 90%;
+            max-width: 500px;
+            text-align: center;
+        }
+
+        /* Glassmorphism Card */
+        .card {
+            background: rgba(20, 20, 30, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 3rem 2rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        /* --- Typography --- */
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, #fff 0%, #a5b4fc 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .tagline {
+            font-family: 'JetBrains Mono', monospace;
+            color: #94a3b8;
+            font-size: 0.9rem;
+            margin-bottom: 2rem;
+        }
+
+        .tagline span {
+            color: #6366f1; /* Code purple */
+        }
+
+        /* --- Buttons --- */
+        .btn-group {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 1rem;
+            border-radius: 12px;
+            text-decoration: none;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 700;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Button Specific Colors */
+        .btn-discord {
+            background: rgba(88, 101, 242, 0.15);
+            color: #5865F2;
+            border-color: rgba(88, 101, 242, 0.3);
+        }
+        .btn-discord:hover {
+            background: #5865F2;
+            color: white;
+            box-shadow: 0 0 20px rgba(88, 101, 242, 0.4);
+        }
+
+        .btn-telegram {
+            background: rgba(36, 161, 222, 0.15);
+            color: #24A1DE;
+            border-color: rgba(36, 161, 222, 0.3);
+        }
+        .btn-telegram:hover {
+            background: #24A1DE;
+            color: white;
+            box-shadow: 0 0 20px rgba(36, 161, 222, 0.4);
+        }
+
+        .btn-whatsapp {
+            background: rgba(37, 211, 102, 0.15);
+            color: #25D366;
+            border-color: rgba(37, 211, 102, 0.3);
+        }
+        .btn-whatsapp:hover {
+            background: #25D366;
+            color: white;
+            box-shadow: 0 0 20px rgba(37, 211, 102, 0.4);
+        }
+
+        /* --- Terminal decoration --- */
+        .terminal-header {
+            display: flex;
+            gap: 6px;
+            margin-bottom: 20px;
+            justify-content: center;
+        }
+        .dot { width: 10px; height: 10px; border-radius: 50%; }
+        .red { background-color: #ff5f56; }
+        .yellow { background-color: #ffbd2e; }
+        .green { background-color: #27c93f; }
+
+        /* --- Animations --- */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            h1 { font-size: 1.8rem; }
+            .card { padding: 2rem 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="canvas-container"></div>
+
+    <div class="content-wrapper">
+        <div class="card">
+            <div class="terminal-header">
+                <div class="dot red"></div>
+                <div class="dot yellow"></div>
+                <div class="dot green"></div>
+            </div>
+
+            <h1>Cosmera</h1>
+            <p class="tagline">&lt;dev&gt; Join the <span id="typewriter"></span> &lt;/dev&gt;</p>
+
+            <div class="btn-group">
+                <a href="#" class="btn btn-discord">
+                    <i class="fa-brands fa-discord"></i> Join Discord Server
+                </a>
+                <a href="#" class="btn btn-telegram">
+                    <i class="fa-brands fa-telegram"></i> Join Telegram Group
+                </a>
+                <a href="#" class="btn btn-whatsapp">
+                    <i class="fa-brands fa-whatsapp"></i> Join WhatsApp Group
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+
+    <script>
+        // --- THREE.JS SETUP ---
+        const scene = new THREE.Scene();
+        
+        // Add some fog for depth
+        scene.fog = new THREE.FogExp2(0x050505, 0.002);
+
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+        
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(window.devicePixelRatio);
+        document.getElementById('canvas-container').appendChild(renderer.domElement);
+
+        // --- PARTICLES (STARS) ---
+        const particlesGeometry = new THREE.BufferGeometry();
+        const particlesCount = 3000; // Number of stars
+
+        const posArray = new Float32Array(particlesCount * 3);
+
+        for(let i = 0; i < particlesCount * 3; i++) {
+            // Spread particles across a wide area
+            posArray[i] = (Math.random() - 0.5) * 20; // Coordinates between -10 and 10
+        }
+
+        particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+
+        // Material for stars
+        const particlesMaterial = new THREE.PointsMaterial({
+            size: 0.02,
+            color: 0x6366f1, // Indigo/Purple tint
+            transparent: true,
+            opacity: 0.8,
+        });
+
+        // Create Mesh
+        const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
+        scene.add(particlesMesh);
+
+        // --- SECONDARY LAYER (Blue Stars) ---
+        const particlesGeometry2 = new THREE.BufferGeometry();
+        const posArray2 = new Float32Array(1500 * 3);
+        for(let i = 0; i < 1500 * 3; i++) {
+            posArray2[i] = (Math.random() - 0.5) * 25;
+        }
+        particlesGeometry2.setAttribute('position', new THREE.BufferAttribute(posArray2, 3));
+        const particlesMaterial2 = new THREE.PointsMaterial({
+            size: 0.015,
+            color: 0x00d4ff, // Cyan tint
+            transparent: true
+        });
+        const particlesMesh2 = new THREE.Points(particlesGeometry2, particlesMaterial2);
+        scene.add(particlesMesh2);
+
+
+        // --- MOUSE INTERACTION ---
+        let mouseX = 0;
+        let mouseY = 0;
+
+        document.addEventListener('mousemove', (event) => {
+            mouseX = event.clientX / window.innerWidth - 0.5; // value between -0.5 and 0.5
+            mouseY = event.clientY / window.innerHeight - 0.5;
+        });
+
+        // --- ANIMATION LOOP ---
+        camera.position.z = 3;
+
+        const animate = () => {
+            requestAnimationFrame(animate);
+
+            // Rotation
+            particlesMesh.rotation.y += 0.001;
+            particlesMesh.rotation.x += 0.0005;
+            
+            particlesMesh2.rotation.y += 0.0005;
+            particlesMesh2.rotation.x -= 0.0002;
+
+            // Interactive movement based on mouse
+            // We lerp (linear interpolate) for smoothness
+            particlesMesh.rotation.y += mouseX * 0.05;
+            particlesMesh.rotation.x += mouseY * 0.05;
+
+            renderer.render(scene, camera);
+        };
+
+        animate();
+
+        // --- RESIZE HANDLER ---
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        // --- TYPEWRITER EFFECT ---
+        const text = "Cosmic Revolution";
+        const typeWriterElement = document.getElementById('typewriter');
+        let i = 0;
+        
+        function typeWriter() {
+            if (i < text.length) {
+                typeWriterElement.innerHTML += text.charAt(i);
+                i++;
+                setTimeout(typeWriter, 100);
+            }
+        }
+        // Start typewriter after 500ms
+        setTimeout(typeWriter, 500);
+
+    </script>
+</body>
+</html>

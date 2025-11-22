@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cosmera Developer Community</title>
+    
+    <!-- Fonts: Space Grotesk for headings, JetBrains Mono for code aesthetics -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Space+Grotesk:wght@300;700&display=swap" rel="stylesheet">
+    
+    <!-- Icons (FontAwesome) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* --- RESET & BASE --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            overflow: hidden;
+            background-color: #050505;
+            color: #ffffff;
+            font-family: 'Space Grotesk', sans-serif;
+            height: 100vh;
+            width: 100vw;
+        }
+
+        /* --- 3D BACKGROUND --- */
+        #canvas-container {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 1;
+            background: radial-gradient(circle at center, #1a1a2e 0%, #000000 100%);
+        }
+
+        /* --- MAIN UI --- */
+        .interface {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+            width: 90%;
+            max-width: 480px;
+            text-align: center;
+        }
+
+        /* Glassmorphism Card */
+        .terminal-card {
+            background: rgba(15, 15, 20, 0.65);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            padding: 2.5rem;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        /* Decorative Terminal Header */
+        .terminal-header {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding-bottom: 1rem;
+        }
+        .dot { width: 12px; height: 12px; border-radius: 50%; }
+        .red { background: #ff5f56; }
+        .yellow { background: #ffbd2e; }
+        .green { background: #27c93f; }
+        .header-title {
+            margin-left: auto;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            color: #666;
+        }
+
+        /* Typography */
+        h1 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, #fff 0%, #a5b4fc 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -1px;
+        }
+
+        .subtitle {
+            font-family: 'JetBrains Mono', monospace;
+            color: #94a3b8;
+            font-size: 0.9rem;
+            margin-bottom: 2.5rem;
+        }
+        .accent { color: #6366f1; }
+        .cursor { display: inline-block; width: 8px; height: 15px; background: #6366f1; animation: blink 1s infinite; }
+
+        /* Buttons */
+        .links-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            padding: 1rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 700;
+            font-size: 0.95rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            transition: 0.5s;
+        }
+        .btn:hover::before { left: 100%; }
+        .btn:hover { transform: translateY(-2px); }
+
+        /* Specific Brand Colors */
+        .btn-discord {
+            background: rgba(88, 101, 242, 0.15);
+            color: #5865F2;
+            border-color: rgba(88, 101, 242, 0.3);
+        }
+        .btn-discord:hover { background: #5865F2; color: white; box-shadow: 0 0 25px rgba(88, 101, 242, 0.4); }
+
+        .btn-telegram {
+            background: rgba(36, 161, 222, 0.15);
+            color: #24A1DE;
+            border-color: rgba(36, 161, 222, 0.3);
+        }
+        .btn-telegram:hover { background: #24A1DE; color: white; box-shadow: 0 0 25px rgba(36, 161, 222, 0.4); }
+
+        .btn-whatsapp {
+            background: rgba(37, 211, 102, 0.15);
+            color: #25D366;
+            border-color: rgba(37, 211, 102, 0.3);
+        }
+        .btn-whatsapp:hover { background: #25D366; color: white; box-shadow: 0 0 25px rgba(37, 211, 102, 0.4); }
+
+        /* Animations */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        /* Mobile Fixes */
+        @media (max-width: 600px) {
+            .terminal-card { padding: 1.5rem; }
+            h1 { font-size: 2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 3D Canvas -->
+    <div id="canvas-container"></div>
+
+    <!-- Content -->
+    <div class="interface">
+        <div class="terminal-card">
+            <div class="terminal-header">
+                <div class="dot red"></div>
+                <div class="dot yellow"></div>
+                <div class="dot green"></div>
+                <div class="header-title">bash — cosmera-cli</div>
+            </div>
+
+            <h1>COSMERA</h1>
+            <p class="subtitle">
+                <span class="accent">const</span> community = <span class="accent">new</span> Universe();<span class="cursor"></span>
+            </p>
+
+            <div class="links-container">
+                <!-- REPLACE '#' WITH YOUR ACTUAL INVITE LINKS -->
+                <a href="#" class="btn btn-discord" target="_blank">
+                    <i class="fa-brands fa-discord"></i> Join Discord
+                </a>
+                <a href="#" class="btn btn-telegram" target="_blank">
+                    <i class="fa-brands fa-telegram"></i> Join Telegram
+                </a>
+                <a href="#" class="btn btn-whatsapp" target="_blank">
+                    <i class="fa-brands fa-whatsapp"></i> Join WhatsApp
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Three.js Library (CDN) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <script>
+        // --- 3D SCENE SETUP ---
+        const scene = new THREE.Scene();
+        
+        // Add fog to blend distant particles into background
+        scene.fog = new THREE.FogExp2(0x050505, 0.002);
+
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+        
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2)); // Optimization
+        document.getElementById('canvas-container').appendChild(renderer.domElement);
+
+        // --- GEOMETRY: PARTICLES (Stars) ---
+        const particlesGeometry = new THREE.BufferGeometry();
+        const particlesCount = 2000;
+        const posArray = new Float32Array(particlesCount * 3);
+
+        for(let i = 0; i < particlesCount * 3; i++) {
+            // Random positions spreading out
+            posArray[i] = (Math.random() - 0.5) * 15; 
+        }
+
+        particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+        const particlesMaterial = new THREE.PointsMaterial({
+            size: 0.02,
+            color: 0xffffff,
+            transparent: true,
+            opacity: 0.8
+        });
+        const starsMesh = new THREE.Points(particlesGeometry, particlesMaterial);
+        scene.add(starsMesh);
+
+        // --- GEOMETRY: CONNECTED WEB (The "Network") ---
+        // Icosahedron is a geometric shape that looks like a tech sphere
+        const geoGeometry = new THREE.IcosahedronGeometry(2.5, 1);
+        const geoMaterial = new THREE.MeshBasicMaterial({ 
+            color: 0x6366f1, 
+            wireframe: true,
+            transparent: true,
+            opacity: 0.15
+        });
+        const networkMesh = new THREE.Mesh(geoGeometry, geoMaterial);
+        scene.add(networkMesh);
+
+        // --- GEOMETRY: FLOATING PARTICLES (Data points) ---
+        const dataGeometry = new THREE.IcosahedronGeometry(2.5, 1);
+        // We use the vertices of the Icosahedron to place glowing dots
+        const dataMaterial = new THREE.PointsMaterial({
+            color: 0x00d4ff, // Cyan
+            size: 0.05,
+            transparent: true
+        });
+        // Convert mesh geometry to points
+        const pointsMesh = new THREE.Points(dataGeometry, dataMaterial);
+        scene.add(pointsMesh);
+
+        // --- INTERACTIVITY ---
+        let mouseX = 0;
+        let mouseY = 0;
+        
+        // Track mouse for parallax effect
+        document.addEventListener('mousemove', (event) => {
+            mouseX = event.clientX / window.innerWidth - 0.5;
+            mouseY = event.clientY / window.innerHeight - 0.5;
+        });
+
+        // --- ANIMATION LOOP ---
+        camera.position.z = 4;
+
+        const clock = new THREE.Clock();
+
+        function animate() {
+            requestAnimationFrame(animate);
+            const elapsedTime = clock.getElapsedTime();
+
+            // Rotate the entire starfield slowly
+            starsMesh.rotation.y = elapsedTime * 0.05;
+            
+            // Rotate the central network/sphere
+            networkMesh.rotation.x += 0.002;
+            networkMesh.rotation.y += 0.002;
+            
+            pointsMesh.rotation.x += 0.002;
+            pointsMesh.rotation.y += 0.002;
+
+            // Add subtle "breathing" scale effect to the network
+            const scale = 1 + Math.sin(elapsedTime * 0.5) * 0.05;
+            networkMesh.scale.set(scale, scale, scale);
+            pointsMesh.scale.set(scale, scale, scale);
+
+            // Parallax effect based on mouse position
+            camera.position.x += (mouseX * 1 - camera.position.x) * 0.05;
+            camera.position.y += (-mouseY * 1 - camera.position.y) * 0.05;
+            camera.lookAt(scene.position);
+
+            renderer.render(scene, camera);
+        }
+
+        animate();
+
+        // --- HANDLE RESIZE ---
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+    </script>
+</body>
+</html>
