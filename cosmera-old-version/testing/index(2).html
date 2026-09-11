@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cosmera - Code with Cosmos. Think Beyond Limits.</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Custom Styles */
+        body {
+            background-color: #000000;
+            color: #E0E0E0;
+            font-family: 'Poppins', sans-serif;
+            overflow-x: hidden;
+        }
+        #star-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            display: block;
+        }
+        .hero-section {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+        .nav-link {
+            transition: color 0.3s ease;
+        }
+        .nav-link:hover {
+            color: #7F00FF;
+        }
+        .cta-button {
+            background-color: #7F00FF;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+        .cta-button:hover {
+            background-color: #5F00BF;
+            transform: translateY(-2px);
+        }
+        .vision-card {
+            background-color: rgba(18, 18, 22, 0.7);
+            border: 1px solid rgba(127, 0, 255, 0.2);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .vision-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(127, 0, 255, 0.3);
+        }
+        .scroll-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background-color: rgba(30, 30, 35, 0.8);
+            color: #E0E0E0;
+            width: 3rem;
+            height: 3rem;
+            border-radius: 50%;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            z-index: 1000;
+            border: 1px solid #7F00FF;
+        }
+        .scroll-to-top:hover {
+            background-color: #7F00FF;
+            transform: scale(1.1);
+        }
+        /* Hamburger Menu Styles */
+        .hamburger {
+            cursor: pointer;
+            display: none; /* Hidden by default on larger screens */
+        }
+        .hamburger .line {
+            width: 25px;
+            height: 2px;
+            background-color: #E0E0E0;
+            display: block;
+            margin: 6px auto;
+            transition: all 0.3s ease-in-out;
+        }
+        @media (max-width: 768px) {
+            .hamburger {
+                display: block;
+            }
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                background-color: #0a0a0a;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                padding: 1rem 0;
+            }
+            .nav-links.active {
+                display: flex;
+            }
+            .nav-links li {
+                text-align: center;
+                margin: 1rem 0;
+            }
+        }
+        /* Rotating Quotes Animation */
+        .quote {
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            position: absolute;
+            left: 0;
+            right: 0;
+        }
+        .quote.active {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body class="bg-black">
+
+    <!-- Canvas for Starfield Animation -->
+    <canvas id="star-canvas"></canvas>
+
+    <!-- Main Content Wrapper -->
+    <div id="home" class="relative z-10">
+
+        <!-- Sticky Navigation Bar -->
+        <header id="navbar" class="bg-black/30 backdrop-blur-md fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+            <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+                <a href="#home" class="text-2xl font-bold text-white">COSMERA</a>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#home" class="nav-link text-gray-300">Home</a>
+                    <a href="#why-cosmera" class="nav-link text-gray-300">Why Cosmera</a>
+                    <a href="#vision" class="nav-link text-gray-300">Vision</a>
+                    <a href="#projects" class="nav-link text-gray-300">Projects</a>
+                    <a href="https://docs.google.com/forms/d/e/1FAIpQLSe.../viewform" target="_blank" class="cta-button text-white font-semibold py-2 px-4 rounded-lg">Join Us</a>
+                </div>
+                <!-- Hamburger Menu -->
+                <div class="md:hidden">
+                    <button id="hamburger-button" class="text-white focus:outline-none">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                    </button>
+                </div>
+            </nav>
+            <!-- Mobile Menu -->
+            <div id="mobile-menu" class="md:hidden hidden bg-black/50 backdrop-blur-lg">
+                <a href="#home" class="block text-center py-2 px-4 text-sm text-gray-300 hover:bg-gray-800">Home</a>
+                <a href="#why-cosmera" class="block text-center py-2 px-4 text-sm text-gray-300 hover:bg-gray-800">Why Cosmera</a>
+                <a href="#vision" class="block text-center py-2 px-4 text-sm text-gray-300 hover:bg-gray-800">Vision</a>
+                <a href="#projects" class="block text-center py-2 px-4 text-sm text-gray-300 hover:bg-gray-800">Projects</a>
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLSe.../viewform" target="_blank" class="block text-center py-4 px-4 text-sm cta-button text-white font-semibold rounded-lg mx-4 my-2">Join Us</a>
+            </div>
+        </header>
+
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="container mx-auto px-6">
+                <p class="text-2xl font-bold text-white">Code with Cosmos. Think Beyond Limits.</p>
+                <div id="quotes-container" class="relative h-12 mt-8 text-gray-300 text-xl md:text-2xl">
+                    <p class="quote active">We are stardust coding stars—logic is our language, and the cosmos is our playground.</p>
+                    <p class="quote">In the infinite universe of code, every bug is a black hole waiting to be mapped.</p>
+                    <p class="quote">Ideas are like galaxies—born from chaos, shaped by gravity, and bright enough to guide.</p>
+                    <p class="quote">Every keystroke is a ripple in the cosmic ocean of innovation.</p>
+                    <p class="quote">Your code today builds the constellations of tomorrow.</p>
+                    <p class="quote">Think in bits. Build in light-years.</p>
+                    <p class="quote">The best way to predict the future is to create it.</p>
+                    <p class="quote">Collaboration is the new competition.</p>
+                    <p class="quote">Innovation distinguishes between a leader and a follower.</p>
+                </div>
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLSe.../viewform" target="_blank" class="cta-button text-white font-bold py-3 px-8 rounded-full mt-20 inline-block">Join the Cosmic - Era Journey</a>
+            </div>
+        </section>
+
+        <main>
+            <!-- Why Cosmera Section -->
+            <section id="why-cosmera" class="py-20 md:py-32">
+                <div class="container mx-auto px-6 text-center">
+                    <h2 class="text-4xl font-bold text-white mb-6">Why Cosmera?</h2>
+                    <div class="max-w-3xl mx-auto">
+                        <p class="text-lg text-gray-400 leading-relaxed">
+                            In an era where technology evolves at the speed of thought, Cosmera is more than a hub — it’s a cosmic shift in how we think, build, and connect. Born from stardust and code, Cosmera is a sanctuary for the curious, the bold, and the boundlessly creative.
+
+We believe the universe favors the imaginative. That’s why Cosmera exists: to inspire developers, designers, and visionaries to transcend limits and rewrite what’s possible. Here, collaboration isn’t just encouraged — it’s the gravity that binds us. Every project is a constellation, every contributor a star.
+
+Whether you're launching your first app or your next moonshot, Cosmera provides the tools, the minds, and the cosmic fuel to help you soar. Because in this universe, we don't just write code — we craft galaxies.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Vision Section -->
+            <section id="vision" class="py-20 md:py-32 bg-black/20">
+                <div class="container mx-auto px-6">
+                    <h2 class="text-4xl font-bold text-white text-center mb-16">Our Vision</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                        <!-- Card 1 -->
+                        <div class="vision-card p-8 rounded-xl text-center">
+                            <div class="text-5xl mb-4 text-violet-500">🚀</div>
+                            <h3 class="text-2xl font-semibold text-white mb-3">Real Tools</h3>
+                            <p class="text-gray-400">Access industry-standard tools and frameworks to bring your most ambitious projects to life.</p>
+                        </div>
+                        <!-- Card 2 -->
+                        <div class="vision-card p-8 rounded-xl text-center">
+                            <div class="text-5xl mb-4 text-violet-500">🧠</div>
+                            <h3 class="text-2xl font-semibold text-white mb-3">Creativity</h3>
+                            <p class="text-gray-400">A space where imagination is your only limit. We encourage experimentation and out-of-the-box thinking.</p>
+                        </div>
+                        <!-- Card 3 -->
+                        <div class="vision-card p-8 rounded-xl text-center">
+                           <div class="text-5xl mb-4 text-violet-500">🤝</div>
+                            <h3 class="text-2xl font-semibold text-white mb-3">Networking</h3>
+                            <p class="text-gray-400">Connect with peers, find mentors, and build teams that can conquer any challenge.</p>
+                        </div>
+                        <!-- Card 4 -->
+                        <div class="vision-card p-8 rounded-xl text-center">
+                            <div class="text-5xl mb-4 text-violet-500">📡</div>
+                            <h3 class="text-2xl font-semibold text-white mb-3">Knowledge Sharing</h3>
+                            <p class="text-gray-400">Learn from the best and share your expertise. Our community thrives on collective intelligence.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Projects Section -->
+            <section id="projects" class="py-20 md:py-32">
+                <div class="container mx-auto px-6">
+                    <h2 class="text-4xl font-bold text-white text-center mb-16">Featured Projects</h2>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <!-- Project Card -->
+                        <div class="vision-card p-6 rounded-lg">
+                            <div class="bg-gray-800 h-40 rounded-md flex items-center justify-center">
+                                <p class="text-gray-500">Project Thumbnail</p>
+                            </div>
+                            <h3 class="text-xl font-semibold text-white mt-4">Project Nebula</h3>
+                            <p class="text-gray-400 mt-2">Coming Soon...</p>
+                        </div>
+                        <!-- Project Card -->
+                        <div class="vision-card p-6 rounded-lg">
+                            <div class="bg-gray-800 h-40 rounded-md flex items-center justify-center">
+                                <p class="text-gray-500">Project Thumbnail</p>
+                            </div>
+                            <h3 class="text-xl font-semibold text-white mt-4">Project Galileo</h3>
+                            <p class="text-gray-400 mt-2">Coming Soon...</p>
+                        </div>
+                        <!-- Project Card -->
+                        <div class="vision-card p-6 rounded-lg">
+                            <div class="bg-gray-800 h-40 rounded-md flex items-center justify-center">
+                                <p class="text-gray-500">Project Thumbnail</p>
+                            </div>
+                            <h3 class="text-xl font-semibold text-white mt-4">Project Apollo</h3>
+                            <p class="text-gray-400 mt-2">Coming Soon...</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Join Us Section -->
+            <section id="join-us" class="py-20 md:py-32 text-center">
+                <div class="container mx-auto px-6">
+                    <h2 class="text-4xl font-bold text-white mb-8">Ready to Shape the Future?</h2>
+                    <a href="https://docs.google.com/forms/d/e/1FAIpQLSe.../viewform" target="_blank" class="cta-button text-white font-bold py-4 px-10 rounded-full text-lg">Join the Cosmera Journey</a>
+                </div>
+            </section>
+
+        </main>
+
+    </div>
+    <footer class="text-center">
+        <p>&copy; 2025 Cosmera. All rights reserved.</p>
+    </footer>
+                
+
+
+    <!-- Scroll to Top Button -->
+    <a id="scroll-to-top" class="scroll-to-top">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7" />
+        </svg>
+    </a>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // --- Starfield Animation ---
+            const canvas = document.getElementById('star-canvas');
+            const ctx = canvas.getContext('2d');
+
+            const config = {
+                text: 'COSMERA',
+                font: 'bold 90px "Poppins", sans-serif',
+                scatterDelay: 4000,
+                numStars: 1500,
+                starSpeed: 0.1,
+                maxRadius: 1.5,
+                mouseInfluence: 0.5, // How much mouse affects the starfield center
+            };
+
+            let particles = [];
+            let mouse = {
+                x: window.innerWidth / 2,
+                y: window.innerHeight / 2
+            };
+            let center = { // The actual center of the starfield projection
+                x: window.innerWidth / 2,
+                y: window.innerHeight / 2
+            };
+            let animationState = 'text'; // 'text', 'scattering', 'starfield'
+            let timeouts = [];
+
+            class Particle {
+                constructor(x, y) {
+                    this.x = x; // Initial text position X
+                    this.y = y; // Initial text position Y
+                    this.originX = x;
+                    this.originY = y;
+                    
+                    // Target starfield coordinates (3D)
+                    this.tx = (Math.random() - 0.5) * window.innerWidth;
+                    this.ty = (Math.random() - 0.5) * window.innerHeight;
+                    this.z = window.innerWidth * 1.5;
+                    this.pz = this.z;
+                }
+
+                update() {
+                    if (animationState === 'scattering') {
+                        // Move from text pos to a random far-away star pos
+                        this.x += (this.tx - this.x) * 0.03;
+                        this.y += (this.ty - this.y) * 0.03;
+                        this.z += (Math.random() * window.innerWidth - this.z) * 0.03;
+                    } else if (animationState === 'starfield') {
+                        // Starfield movement from bottom-left to top-right illusion
+                        this.z -= config.starSpeed;
+
+                        if (this.z < 1) {
+                            this.z = window.innerWidth;
+                            this.tx = (Math.random() - 0.5) * window.innerWidth;
+                            this.ty = (Math.random() - 0.5) * window.innerHeight;
+                            // Reset origin to new target for smooth re-entry
+                            this.x = center.x + this.tx / (window.innerWidth / this.z);
+                            this.y = center.y + this.ty / (window.innerWidth / this.z);
+                            this.pz = this.z;
+                        }
+                    }
+                }
+
+                draw() {
+                    let sx, sy, radius, scale;
+                    
+                    if (animationState === 'text') {
+                        ctx.fillStyle = 'rgba(224, 224, 224, 0.9)';
+                        ctx.fillRect(this.x, this.y, 1.5, 1.5);
+                    } else {
+                        scale = window.innerWidth / this.z;
+                        // The star position is projected from its target (tx, ty) relative to the center
+                        sx = center.x + this.tx * scale;
+                        sy = center.y + this.ty * scale;
+
+                        // Only draw if within canvas bounds
+                        if (sx > 0 && sx < canvas.width && sy > 0 && sy < canvas.height) {
+                            radius = Math.max(0, (1 - this.z / window.innerWidth) * config.maxRadius);
+                            
+                            ctx.beginPath();
+                            ctx.arc(sx, sy, radius, 0, Math.PI * 2);
+                            ctx.fillStyle = `rgba(224, 224, 224, ${0.8 * (1 - this.z / window.innerWidth)})`;
+                            ctx.fill();
+                            
+                            // Motion trail
+                            const prevScale = window.innerWidth / this.pz;
+                            const prev_sx = center.x + this.tx * prevScale;
+                            const prev_sy = center.y + this.ty * prevScale;
+                            this.pz = this.z;
+
+                            ctx.beginPath();
+                            ctx.moveTo(prev_sx, prev_sy);
+                            ctx.lineTo(sx, sy);
+                            ctx.strokeStyle = `rgba(127, 0, 255, ${0.4 * (1 - this.z / window.innerWidth)})`;
+                            ctx.lineWidth = radius;
+                            ctx.stroke();
+                        }
+                    }
+                }
+            }
+
+            function init() {
+                timeouts.forEach(clearTimeout);
+                timeouts = [];
+                animationState = 'text';
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+                
+                if (canvas.width === 0 || canvas.height === 0) return;
+
+                mouse.x = canvas.width / 2;
+                mouse.y = canvas.height / 2;
+                center.x = canvas.width / 2;
+                center.y = canvas.height / 2;
+
+                const tempCanvas = document.createElement('canvas');
+                const tempCtx = tempCanvas.getContext('2d');
+                tempCanvas.width = canvas.width;
+                tempCanvas.height = canvas.height;
+                
+                tempCtx.fillStyle = 'white';
+                tempCtx.font = config.font;
+                tempCtx.textAlign = 'center';
+                tempCtx.textBaseline = 'middle';
+                tempCtx.fillText(config.text, tempCanvas.width / 2, (tempCanvas.height / 2)-180);
+                const imageData = tempCtx.getImageData(0, 0, tempCanvas.width, tempCanvas.height);
+                
+                particles = [];
+                for (let y = 0; y < imageData.height; y += 4) {
+                    for (let x = 0; x < imageData.width; x += 4) {
+                        const alpha = imageData.data[(y * imageData.width + x) * 4 + 3];
+                        if (alpha > 128) {
+                            particles.push(new Particle(x, y));
+                        }
+                    }
+                }
+                
+                while (particles.length < config.numStars) {
+                    const p = new Particle(Math.random() * canvas.width, Math.random() * canvas.height);
+                    p.z = Math.random() * window.innerWidth;
+                    particles.push(p);
+                }
+
+                const scatterTimeout = setTimeout(() => {
+                    animationState = 'scattering';
+                    const starfieldTimeout = setTimeout(() => {
+                        animationState = 'starfield';
+                        // Set initial star positions for a more uniform distribution
+                         particles.forEach(p => {
+                            p.tx = (Math.random() - 0.5) * window.innerWidth * 2;
+                            p.ty = (Math.random() - 0.5) * window.innerHeight * 2;
+                            p.z = Math.random() * window.innerWidth;
+                        });
+                    }, 2500); // Scatter transition duration
+                    timeouts.push(starfieldTimeout);
+                }, config.scatterDelay);
+                timeouts.push(scatterTimeout);
+            }
+
+            function animate() {
+                // Use a subtle fade effect for trails
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.2)';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+                // Smoothly move the center of the starfield towards the mouse position
+                center.x += (mouse.x - center.x) * config.mouseInfluence;
+                // Make the vertical movement more subtle and flow towards top-right
+                center.y += (mouse.y - center.y - 100) * config.mouseInfluence * 0.5;
+
+
+                particles.forEach(p => {
+                    p.update();
+                    p.draw();
+                });
+                requestAnimationFrame(animate);
+            }
+
+            window.addEventListener('mousemove', (e) => {
+                mouse.x = e.clientX;
+                mouse.y = e.clientY;
+            });
+
+            window.addEventListener('resize', init);
+            
+            init();
+            animate();
+
+            // --- UI Interactions ---
+
+            // Hamburger Menu
+            const hamburgerButton = document.getElementById('hamburger-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            hamburgerButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            // Close mobile menu when a link is clicked
+            mobileMenu.addEventListener('click', (e) => {
+                if (e.target.tagName === 'A') {
+                    mobileMenu.classList.add('hidden');
+                }
+            });
+
+            // Scroll to Top Button
+            const scrollToTopBtn = document.getElementById('scroll-to-top');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 300) {
+                    scrollToTopBtn.style.display = 'flex';
+                } else {
+                    scrollToTopBtn.style.display = 'none';
+                }
+            });
+            scrollToTopBtn.addEventListener('click', () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+
+            // Sticky Navbar Background
+            const navbar = document.getElementById('navbar');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    navbar.classList.add('bg-black/80');
+                } else {
+                    navbar.classList.remove('bg-black/80');
+                }
+            });
+
+            // Rotating Quotes
+            const quotes = document.querySelectorAll('#quotes-container .quote');
+            let currentQuoteIndex = 0;
+            setInterval(() => {
+                quotes[currentQuoteIndex].classList.remove('active');
+                currentQuoteIndex = (currentQuoteIndex + 1) % quotes.length;
+                quotes[currentQuoteIndex].classList.add('active');
+            }, 8000);
+        });
+    </script>
+</body>
+</html>

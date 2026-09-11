@@ -1,0 +1,137 @@
+/* style.css
+  Custom styles for the Cosmera website.
+*/
+
+/* General Body and Font Styles */
+body {
+    background-color: #000000;
+    color: #E0E0E0;
+    font-family: 'Poppins', sans-serif;
+    overflow-x: hidden; /* Prevents horizontal scrollbar */
+}
+
+/* Starfield Canvas Background */
+#star-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1; /* Places the canvas behind all other content */
+    display: block;
+}
+
+/* Hero Section Styling */
+.hero-section {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+}
+
+/* Navigation Link Hover Effect */
+.nav-link {
+    transition: color 0.3s ease;
+}
+.nav-link:hover {
+    color: #7F00FF; /* Purple hover color */
+}
+
+/* Call-to-Action Button Styles */
+.cta-button {
+    background-color: #7F00FF;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+.cta-button:hover {
+    background-color: #5F00BF; /* Darker purple on hover */
+    transform: translateY(-2px); /* Slight lift effect */
+}
+
+/* Vision Card Styling */
+.vision-card {
+    background-color: rgba(18, 18, 22, 0.7); /* Semi-transparent dark background */
+    border: 1px solid rgba(127, 0, 255, 0.2); /* Subtle purple border */
+    backdrop-filter: blur(10px); /* Frosted glass effect */
+    -webkit-backdrop-filter: blur(10px); /* Safari support for backdrop-filter */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.vision-card:hover {
+    transform: translateY(-5px); /* Lift card on hover */
+    box-shadow: 0 8px 30px rgba(127, 0, 255, 0.3); /* Purple glow effect */
+}
+
+/* Scroll to Top Button */
+.scroll-to-top {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    background-color: rgba(30, 30, 35, 0.8);
+    color: #E0E0E0;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    display: none; /* Hidden by default, shown via JS */
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    z-index: 1000;
+    border: 1px solid #7F00FF;
+}
+.scroll-to-top:hover {
+    background-color: #7F00FF;
+    transform: scale(1.1);
+}
+
+/* Hamburger Menu Styles for Mobile */
+.hamburger {
+    cursor: pointer;
+    display: none; /* Hidden by default on larger screens */
+}
+.hamburger .line {
+    width: 25px;
+    height: 2px;
+    background-color: #E0E0E0;
+    display: block;
+    margin: 6px auto;
+    transition: all 0.3s ease-in-out;
+}
+
+/* Responsive styles for screens smaller than 768px */
+@media (max-width: 768px) {
+    .hamburger {
+        display: block; /* Show hamburger on mobile */
+    }
+    .nav-links {
+        display: none; /* Hide the desktop nav links */
+        flex-direction: column;
+        width: 100%;
+        background-color: #0a0a0a;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        padding: 1rem 0;
+    }
+    .nav-links.active {
+        display: flex; /* Show nav links when active */
+    }
+    .nav-links li {
+        text-align: center;
+        margin: 1rem 0;
+    }
+}
+
+/* Rotating Quotes Animation */
+.quote {
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+    position: absolute; /* Allows quotes to stack on top of each other */
+    left: 0;
+    right: 0;
+}
+.quote.active {
+    opacity: 1; /* Fades in the active quote */
+}
